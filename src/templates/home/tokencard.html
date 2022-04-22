@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card border-dark mb-3">
+            <div class="card">
+                <div class="card-header"><h3>{{card_title}}</h3></div>
+                <div class="card-body" style="max-height: 500px;overflow-y: auto;">
+                    <div class="btn-group" role="group" aria-label="Token Group" style="flex-wrap: wrap;justify-content:flex-start">                
+                    {% for token in token_list %}
+                        {%if dec_flag and loop.index0 > 0%}
+                        <a class="btn btn-link rounded-0" href="/analyze/{{loop.index0}}" target="_blank">{{token}}<br>{{loop.index0}}</a>
+                        {%else %}
+                        <button type="button" class="btn btn-secondary rounded-0">{{token}}<br>{{loop.index0}}</button>
+                        {%endif%}
+                    {%endfor%}       
+                    </div>                              
+                </div>
+            </div>
+        </div>    
+    </div>
+    <div class="col-md-2"></div>    
+</div>

@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card border-light mb-3">
+            <div class="card">
+                <div class="card-header"><h3>{{card_title}}</h3></div>
+                <div class="card-body">
+ 
+                    <div style="width:100%;max-height: 400px;overflow:auto;display:inline-block;">
+                    <table class="table table-hover">
+                        <thead style="position: sticky;top: 0">
+                            <tr class="table-dark">
+                                <th scope="col">Token</th>
+                                <th scope="col">Probability</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for value,token in pred_info%}
+                                <tr class="table-secondary">
+                                    <th scope="row">{{token}}</th>
+                                    <td>{{value}}</td>
+                                </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                    </div>
+                                       
+                </div>
+            </div>
+        </div>    
+    </div>
+    <div class="col-md-2"></div>    
+</div>

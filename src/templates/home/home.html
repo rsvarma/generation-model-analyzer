@@ -1,0 +1,24 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Home
+{%endblock%}
+
+{%block content%}
+    {%with card_title="Encoder Text",submit_name="enc_submit"%} 
+        {%include "home/textcard.html"%}
+    {%endwith%}
+    {%if enc_token_text%}
+        {%with card_title="Encoder Tokens",token_list=enc_token_text,dec_flag=False%}
+            {%include "home/tokencard.html"%}
+        {%endwith%}
+    {%endif%}
+    {%with card_title="Decoder Text",submit_name="dec_submit"%}
+        {%include "home/textcard.html"%}
+    {%endwith%}
+    {%if dec_token_text%}
+        {%with card_title="Decoder Tokens",token_list=dec_token_text,dec_flag=True%}
+            {%include "home/tokencard.html"%}
+        {%endwith%}
+    {%endif%}
+{%endblock%}

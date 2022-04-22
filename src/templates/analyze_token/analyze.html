@@ -1,0 +1,20 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+{{sel_token}}
+{%endblock%}
+
+{%block content%}
+    {%with card_title="Prediction Probabilities",pred_info=pred_info%}
+        {%include "analyze_token/predcard.html"%}
+    {%endwith%}
+    {%with card_title="Encoder Attentions",collapse_title="enc",attr_info=enc_info%}
+        {%include "analyze_token/attributioncard.html" %}
+    {%endwith%}
+    {%with card_title="Decoder Attentions",collapse_title="dec",attr_info=dec_info%}
+        {%include "analyze_token/attributioncard.html" %}
+    {%endwith%}    
+    {%with card_title="Integrated Gradients",collapse_title="ig",attr_info=ig_info%}
+        {%include "analyze_token/attributioncard.html" %}
+    {%endwith%}        
+{%endblock%}
