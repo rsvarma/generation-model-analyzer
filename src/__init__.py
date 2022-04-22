@@ -30,6 +30,7 @@ def create_app(test_config=None):
     def index_post():
         text = request.form['text']
         token_text = get_tokens_from_text(text,session['tokenizer'])
+        token_text = [sub.replace('Ġ','⎵') for sub in token_text]
         token_ids = get_input_ids(text,session['tokenizer'])
         if 'enc_submit' in request.form:
             session['enc_token_text'] = token_text
