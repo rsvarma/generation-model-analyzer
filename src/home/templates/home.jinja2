@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'base.jinja2' %} 
 
 {% block title %}
 Home
@@ -6,19 +6,19 @@ Home
 
 {%block content%}
     {%with card_title="Encoder Text",submit_name="enc_submit"%} 
-        {%include "home/textcard.html"%}
+        {%include "textcard.jinja2"%}
     {%endwith%}
     {%if enc_token_text%}
         {%with card_title="Encoder Tokens",token_list=enc_token_text,dec_flag=False%}
-            {%include "home/tokencard.html"%}
+            {%include "tokencard.jinja2"%}
         {%endwith%}
     {%endif%}
     {%with card_title="Decoder Text",submit_name="dec_submit"%}
-        {%include "home/textcard.html"%}
+        {%include "textcard.jinja2"%}
     {%endwith%}
     {%if dec_token_text%}
         {%with card_title="Decoder Tokens",token_list=dec_token_text,dec_flag=True%}
-            {%include "home/tokencard.html"%}
+            {%include "tokencard.jinja2"%}
         {%endwith%}
     {%endif%}
 {%endblock%}
