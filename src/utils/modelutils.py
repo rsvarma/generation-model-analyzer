@@ -117,7 +117,7 @@ def extract_1d_id_list(input_id_list):
 def get_id_text(ids,tokenizer):
     ids = extract_1d_id_list(ids)
     text = tokenizer.convert_ids_to_tokens(ids)
- 
+    text = [sub.replace('Ġ','␣') for sub in text] 
     return text 
 
 def generate_ref_sequences(input_ids,embed,tokenizer):
@@ -129,8 +129,8 @@ def generate_ref_sequences(input_ids,embed,tokenizer):
     return ref_input_embeds
 
 def replace_special_bart_tokens(text_list):
-    text_list[0] = 'begin_sequence'
-    text_list[-1] = 'end_sequence'
+    text_list = [sub.replace('<s>',"begin_sequence") for sub in text_list]    
+    text_list = [sub.replace('</s>',"end_sequence") for sub in text_list]
     return text_list
 
 def get_tokens_from_text(text,tokenizer):

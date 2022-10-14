@@ -1,19 +1,22 @@
-<div class="modal">
-  <div class="modal-dialog" role="document">
+<div class="modal" id="prependModal">
+  <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"></h5>
+        <h5 class="modal-title">Adjust Special Tokens</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"></span>
         </button>
       </div>
+      <form action="/prepend" method="POST">
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <p>The huggingface model generate function sometimes generates odd special token additions to the beginning of sequences. To mimic that behavior please enter the ids of the special tokens you want prepended to the example, separated by commas.</p>
+        <textarea class="form-control" name="text" rows="2"></textarea>        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary" name="prependSub">Save changes</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
+      </form>
     </div>
   </div>
 </div>

@@ -1,10 +1,20 @@
 {% extends 'base.jinja2' %} 
 
+{%block script%}
+$(document).ready(function(){
+  $("#prependButton").click(function(){
+    $("#prependModal").modal('show');
+  });
+});
+
+{%endblock%}
+
 {% block title %}
 Home
 {%endblock%}
 
 {%block content%}
+    {%include "prepend_token_modal.jinja2"%}
     {%with card_title="Encoder Text",submit_name="enc_submit"%} 
         {%include "textcard.jinja2"%}
     {%endwith%}
