@@ -28,7 +28,8 @@ def prepend_tokens():
     dec_token_text = session['dec_token_text'] if session.get('dec_token_text') is not None else None       
     return render_template('home.jinja2',
             enc_token_text=enc_token_text,
-            dec_token_text=dec_token_text)    
+            dec_token_text=dec_token_text,
+            prepend_button=True)    
 
 
 
@@ -42,13 +43,13 @@ def index_get():
     dec_token_text = session['dec_token_text'] if session.get('dec_token_text') is not None else None       
     return render_template('home.jinja2',
             enc_token_text=enc_token_text,
-            dec_token_text=dec_token_text)
+            dec_token_text=dec_token_text,
+            prepend_button=True)
 
 @home_bp.route('/',methods=['POST'])
 def index_post():
     text = request.form['text']
     token_text = get_tokens_from_text(text,session['tokenizer'])
-
     token_ids = get_input_ids(text,session['tokenizer'])
     if 'enc_submit' in request.form:
         session['enc_token_text'] = token_text
@@ -61,6 +62,7 @@ def index_post():
     dec_token_text = session['dec_token_text'] if session.get('dec_token_text') is not None else None  
     return render_template('home.jinja2',
             enc_token_text=enc_token_text,
-            dec_token_text=dec_token_text)
+            dec_token_text=dec_token_text,
+            prepend_button = True)
 
         

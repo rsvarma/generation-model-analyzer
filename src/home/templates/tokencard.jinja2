@@ -3,7 +3,18 @@
     <div class="col-md-8">
         <div class="card border-dark mb-3">
             <div class="card">
-                <div class="card-header"><h3>{{card_title}}</h3></div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3>{{card_title}}</h3>
+                        </div>
+                        <div class="col-md-1">
+                            {%if prepend_button%}
+                            <button type="button" id="prependButton" class="btn btn-outline-info btn-sm rounded-0">Prepend Tokens</button>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body" style="max-height: 500px;overflow-y: auto;">
                     <div class="btn-group" role="group" aria-label="Token Group" style="flex-wrap: wrap;justify-content:flex-start">                
                     {% for token in token_list %}
