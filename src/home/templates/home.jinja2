@@ -15,7 +15,7 @@ Home
 
 {%block content%}
     {%include "prepend_token_modal.jinja2"%}
-    {%with card_title="Encoder Text",submit_name="enc_submit"%} 
+    {%with card_title="Encoder Text",submit_name="enc_submit",text=enc_text%} 
         {%include "textcard.jinja2"%}
     {%endwith%}
     {%if enc_token_text%}
@@ -23,7 +23,7 @@ Home
             {%include "tokencard.jinja2"%}
         {%endwith%}
     {%endif%}
-    {%with card_title="Decoder Text",submit_name="dec_submit"%}
+    {%with card_title="Decoder Text",submit_name="dec_submit",text=dec_text%}
         {%include "textcard.jinja2"%}
     {%endwith%}
     {%if dec_token_text%}
@@ -31,4 +31,13 @@ Home
             {%include "tokencard.jinja2"%}
         {%endwith%}
     {%endif%}
+    {%if enc_text%}
+    <div class="row" style="padding-top: 10px">
+        <div class="col-md-12">
+            <form action="/generate" method="POST">
+                <button type="submit" class="btn btn-outline-primary" id="generateButton" style="float:right">Autogenerate Summary from Prompts</button>   
+            </form>
+        </div>
+    </div>  
+    {%endif%}    
 {%endblock%}

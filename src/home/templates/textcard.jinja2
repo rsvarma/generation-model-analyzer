@@ -6,7 +6,7 @@
                 <div class="card-header"><h3>{{card_title}}</h3></div>
                 <div class="card-body">
                     <form action="/" method="POST">
-                        <textarea class="form-control" name="text" rows="5"></textarea>
+                        <textarea class="form-control" name="text" rows="5">{{text if text else ""}}</textarea>
                         <div class="row" style="padding-top: 10px">
                             <div class="col-md-12">
                                     <button type="submit" name={{submit_name}} class="btn btn-outline-primary" style="float:right">Submit</button>   

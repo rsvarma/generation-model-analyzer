@@ -24,13 +24,28 @@ def prepend_tokens():
     session['dec_ids'] = dec_ids
     session['prepend_token_len'] = len(tokens)
     session['dec_token_text'] = dec_text
-    enc_token_text = session['enc_token_text'] if session.get('enc_token_text') is not None else None
-    dec_token_text = session['dec_token_text'] if session.get('dec_token_text') is not None else None       
-    return render_template('home.jinja2',
-            enc_token_text=enc_token_text,
-            dec_token_text=dec_token_text,
-            prepend_button=True)    
+    return render_home() 
 
+@home_bp.route('/generate',methods=['POST'])
+def generate_summary():
+    enc_ids = session['enc_ids']
+
+    dec_ids = session.get('dec_ids')
+    encoder_text = session['enc_token_text']
+    model = session['model']
+    tokenizer= session['tokenizer']
+    device = session['device'] 
+    if dec_ids is not None:
+        #get all decoder ids but dont include end sequence
+        dec_ids = dec_ids[:,:-1]
+        session['dec_ids'] = model.generate(input_ids=enc_ids.to(device),decoder_input_ids=dec_ids.to(device)).cpu()
+        session['dec_text'] = tokenizer.batch_decode(session['dec_ids'],skip_special_tokens=True)[0]
+        session['dec_token_text'] = get_tokens_from_ids(session['dec_ids'],tokenizer)  
+    else:
+        session['dec_ids'] = model.generate(enc_ids.to(device)).cpu()
+        session['dec_text'] = tokenizer.batch_decode(session['dec_ids'],skip_special_tokens=True)[0]
+        session['dec_token_text'] = get_tokens_from_ids(session['dec_ids'],tokenizer)
+    return render_home() 
 
 
 @home_bp.route('/',methods=['GET'])
@@ -39,30 +54,39 @@ def index_get():
         print("running init_model")
         #for refactoring to all models will have to take in code for init_model
         session['model'],session['tokenizer'],session['device'] = init_model() 
-    enc_token_text = session['enc_token_text'] if session.get('enc_token_text') is not None else None
-    dec_token_text = session['dec_token_text'] if session.get('dec_token_text') is not None else None       
-    return render_template('home.jinja2',
-            enc_token_text=enc_token_text,
-            dec_token_text=dec_token_text,
-            prepend_button=True)
+    return render_home()
 
 @home_bp.route('/',methods=['POST'])
 def index_post():
     text = request.form['text']
-    token_text = get_tokens_from_text(text,session['tokenizer'])
-    token_ids = get_input_ids(text,session['tokenizer'])
+    if text == "":
+        text = None 
+        token_text = None 
+        token_ids = None 
+    else:
+        token_text = get_tokens_from_text(text,session['tokenizer'])
+        token_ids = get_input_ids(text,session['tokenizer'])
     if 'enc_submit' in request.form:
+        session['enc_text'] = text
         session['enc_token_text'] = token_text
         session['enc_ids'] = token_ids
     elif 'dec_submit' in request.form:
+        session['dec_text'] = text
         session['dec_token_text'] = token_text 
         session['dec_ids'] = token_ids
         session['prepend_token_len'] = 1
+    return render_home()
+
+
+
+def render_home():
+    enc_text = session['enc_text'] if session.get('enc_text') is not None else None 
+    dec_text = session['dec_text'] if session.get('dec_text') is not None else None
     enc_token_text = session['enc_token_text'] if session.get('enc_token_text') is not None else None
     dec_token_text = session['dec_token_text'] if session.get('dec_token_text') is not None else None  
     return render_template('home.jinja2',
+            enc_text = enc_text,
+            dec_text = dec_text,
             enc_token_text=enc_token_text,
             dec_token_text=dec_token_text,
             prepend_button = True)
-
-        

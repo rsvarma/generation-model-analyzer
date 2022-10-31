@@ -135,9 +135,12 @@ def replace_special_bart_tokens(text_list):
 
 def get_tokens_from_text(text,tokenizer):
     token_ids = get_input_ids(text,tokenizer)
-    token_text = replace_special_bart_tokens(get_id_text(token_ids,tokenizer))    
-
+    token_text = get_tokens_from_ids(token_ids,tokenizer)    
     return token_text
+
+def get_tokens_from_ids(token_ids,tokenizer):
+    token_text = replace_special_bart_tokens(get_id_text(token_ids,tokenizer))    
+    return token_text   
 
 def bart_forward_func(attr_embeds,other_input_embeds,bart,pred_idx,index,attr_mode="enc"):
     if attr_mode=="enc":

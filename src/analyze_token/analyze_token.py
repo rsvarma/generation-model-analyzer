@@ -118,7 +118,7 @@ def analyze(dec_idx):
 
     ig_info = zip(ig_attributions,ig_inds,ig_tokens,ig_titles)  
 
-    return render_template('analyze.jinja2',sel_token=decoder_text[dec_idx],
+    return render_template('analyze.jinja2',sel_token=decoder_text[dec_idx]+"_"+str(dec_idx),
                             pred_info=pred_info,
                             enc_info=encoder_att_info,
                             dec_info=decoder_att_info,
